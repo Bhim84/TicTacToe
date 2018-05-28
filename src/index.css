@@ -1,0 +1,22 @@
+div.box {
+  background-color: black;
+  margin: 1px 1px 0px 0px;
+  position: relative;
+  cursor: -webkit-grab;
+  -webkit-box-shadow: 5px 5px 15px 0 rgba(0, 0, 0, 0);
+  box-shadow: 5px 5px 15px 0 rgba(0, 0, 0, 0);
+}
+
+body,
+html,
+div.board,
+div#root {
+  height: 100%;
+  overflow: hidden;
+  align-items: center;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
