@@ -24,7 +24,7 @@ class TicTacToe extends React.Component {
   drawBox(row, key) {
     var output = (
       <tr key={key}>
-        {row.map(box => (
+        {row.map((box, index) => (
           <td>
             <Box id={box} size={this.state.boxSize} />
           </td>
