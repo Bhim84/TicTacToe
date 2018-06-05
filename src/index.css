@@ -10,6 +10,14 @@ div.box {
 .player {
   font-size: 70px;
 }
+
+.heading {
+  display: inline-block;
+  text-align: center;
+  border: 3px solid green;
+  width: 100%;
+  font-family: Cambria, Cochin, Georgia, Times, Times New Roman, serif;
+}
 body,
 html,
 div.board,

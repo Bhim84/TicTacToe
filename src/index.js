@@ -56,7 +56,9 @@ class TicTacToe extends React.Component {
     this.style = {
       position: "relative",
       left: window.innerWidth / 2 - this.state.boxSize * 3 / 2 + "px",
-      top: window.innerHeight / 2 - this.state.boxSize * 3 / 2 + "px"
+      top: window.innerHeight / 2 - this.state.boxSize * 3 / 2 + "px",
+      width: "310px",
+      margin: "1px 1px 0px 0px"
     };
   }
 
@@ -84,7 +86,7 @@ class TicTacToe extends React.Component {
   render() {
     return (
       <div style={this.style}>
-        <span id="playerDetails">
+        <span id="playerDetails" className="heading">
           Player {this.state.player === 1 ? "X" : "O"} {this.state.msg}
         </span>
         <table>
