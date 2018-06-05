@@ -7,44 +7,49 @@ class TicTacToe extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      board: [[0, 0, 0], [0, 0, 0], [0, 0, 0]],
+      board: [[-10, -10, -10], [-10, -10, -10], [-10, -10, -10]],
       boxSize: 100,
-      player: 1
+      player: 1,
+      msg: "Turn",
+      gameStatus: true
     };
     this.drawBox = this.drawBox.bind(this);
     this.select = this.select.bind(this);
+    this.check = this.check.bind(this);
   }
 
   select(row, col) {
-    console.log("From index: ", row + ":" + col);
-    let updatedBoard = this.state.board;
-    updatedBoard[row][col] = this.state.player;
-    this.setState({
-      player: this.state.player === 2 ? 1 : 2,
-      board: updatedBoard
-    });
+    if (this.state.gameStatus) {
+      console.log("From index: ", row + ":" + col);
+      let updatedBoard = this.state.board;
+      updatedBoard[row][col] = this.state.player;
+      if (this.check(updatedBoard)) {
+        this.setState({ msg: "Won the Game", gameStatus: false });
+      } else {
+        this.setState({
+          player: this.state.player === 2 ? 1 : 2,
+          board: updatedBoard
+        });
+      }
+    }
   }
 
-  check() {
-    let b = this.state.board;
+  check(b) {
+    let checkValue = this.state.player === 1 ? 3 : 6;
     for (var i = 0; i < b.length; i++) {
-      if ((b[i][0] === b[i][1]) === b[i][2]) {
+      if (b[i][0] + b[i][1] + b[i][2] === checkValue) {
         return true;
       }
     }
-    for (var i = 0; i < b.length; i++) {
-      if ((b[0][i] === b[1][i]) === b[2][i]) {
+    for (i = 0; i < b.length; i++) {
+      if (b[0][i] + b[1][i] + b[2][i] === checkValue) {
         return true;
       }
     }
-    return (
-      (b[0][0] === b[1][1]) === b[2][2] ||
-      (b[1][0] === b[1][1]) === b[1][2] ||
-      (b[2][0] === b[2][1]) === b[2][2] ||
-      (b[0][0] === b[1][0]) === b[2][0] ||
-      (b[0][0] === b[0][1]) === b[0][2] ||
-      (b[0][0] === b[0][1]) === b[0][2]
-    );
+    return b[0][0] + b[1][1] + b[2][2] === checkValue ||
+      b[2][0] + b[1][1] + b[0][2] === checkValue
+      ? true
+      : false;
   }
 
   componentWillMount() {
@@ -66,6 +71,7 @@ class TicTacToe extends React.Component {
               id={colId}
               onClick={this.select}
               player={this.state.player}
+              gameStatus={this.state.gameStatus}
               size={this.state.boxSize}
             />
           </td>
@@ -78,7 +84,9 @@ class TicTacToe extends React.Component {
   render() {
     return (
       <div style={this.style}>
-        <span id="playerDetails">Player {this.state.player} Turn</span>
+        <span id="playerDetails">
+          Player {this.state.player === 1 ? "X" : "O"} {this.state.msg}
+        </span>
         <table>
           <tbody>
             {this.state.board.map((row, key) => this.drawBox(row, key))}

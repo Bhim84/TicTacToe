@@ -15,14 +15,14 @@ export default class Box extends Component {
   }
 
   select() {
-    if (this.state.player) {
+    if (this.state.player || !this.props.gameStatus) {
       return;
     }
     this.props.onClick(this.props.row, this.props.col);
     this.setState(prevState => ({
       style: {
         ...prevState.style,
-        backgroundColor: "grey"
+        backgroundColor: this.props.player === 1 ? "#FFC300" : "#FF5733"
       },
       player: this.state.player === "" ? this.props.player : ""
     }));
@@ -38,7 +38,7 @@ export default class Box extends Component {
         onClick={this.select}
         className="box"
       >
-        <span>{this.state.player}</span>
+        <span className="player">{this.state.player === 1 ? "X" : "O"}</span>
       </div>
     );
   }
